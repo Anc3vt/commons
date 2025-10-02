@@ -14,9 +14,29 @@ A lightweight collection of **utility classes** for everyday Java development. I
 
 The library is designed to reduce boilerplate and speed up prototyping, while still being flexible enough for production use (with caution).
 
+## Contents:
+
+* [ Features](#-features)
+
+    * [Runtime Utilities (`com.ancevt.util.runtime`)](#runtime-utilities-comancevtutilruntime)
+    * [Configuration (`com.ancevt.util.config`)](#configuration-comancevtutilconfig)
+    * [String Helpers (`com.ancevt.util.string`)](#string-helpers-comancevtutilstring)
+* [ Installation](#-installation)
+* [ Usage Examples](#-usage-examples)
+
+    * [Silent](#silent)
+    * [ExceptionUtils](#exceptionutils)
+    * [EnvUtils](#envutils)
+    * [PlatformUtils](#platformutils)
+    * [ObservableConfig](#observableconfig)
+    * [TextTable](#texttable)
+* [⚠️ Notes](#-notes)
+* [ License](#-license)
+
+
 ---
 
-## 🚀 Features
+## Features
 
 ### Runtime Utilities (`com.ancevt.util.runtime`)
 
@@ -37,7 +57,7 @@ The library is designed to reduce boilerplate and speed up prototyping, while st
 
 ---
 
-## 📦 Installation
+## Installation
 
 ```xml
 <dependency>
@@ -49,7 +69,7 @@ The library is designed to reduce boilerplate and speed up prototyping, while st
 
 ---
 
-## 🔧 Usage Examples
+## Usage Examples
 
 ### Silent
 
@@ -147,6 +167,6 @@ Output:
 
 ---
 
-## 📝 License
+## License
 
 Apache License 2.0 – see [LICENSE](LICENSE).

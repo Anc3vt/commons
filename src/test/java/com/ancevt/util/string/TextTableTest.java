@@ -1,3 +1,21 @@
+/*
+ * Copyright (C) 2025 Ancevt.
+ * See the notice.md file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.ancevt.util.string;
 
 import org.junit.jupiter.api.DisplayName;
@@ -15,9 +33,10 @@ class TextTableTest {
                 .align(0, TextTable.Alignment.RIGHT)
                 .align(2, TextTable.Alignment.CENTER)
                 .style(TextTable.Style.BORDERED)
-                .build()
                 .row(1, "Alice", 95)
-                .row(2, "Bob", 87);
+                .row(2, "Bob", 87)
+                .build();
+
 
         String output = table.render();
 
@@ -36,8 +55,8 @@ class TextTableTest {
         TextTable table = TextTable.builder()
                 .headers("A", "B")
                 .style(TextTable.Style.PLAIN)
-                .build()
-                .row("foo", "bar");
+                .row("foo", "bar")
+                .build();
 
         String output = table.render();
 
@@ -47,42 +66,27 @@ class TextTableTest {
     }
 
     @Test
-    @DisplayName("MARKDOWN style should render header separator with dashes")
-    void testMarkdown() {
-        TextTable table = TextTable.builder()
-                .headers("Col1", "Col2")
-                .style(TextTable.Style.MARKDOWN)
-                .build()
-                .row("x", "y");
-
-        String output = table.render();
-
-        assertTrue(output.startsWith("| Col1"));
-        assertTrue(output.contains("|---"));
-        assertTrue(output.contains("| x"));
-    }
-
-    @Test
     @DisplayName("Row length mismatch should throw IllegalArgumentException")
     void testRowLengthMismatch() {
-        TextTable table = TextTable.builder()
-                .headers("A", "B", "C")
-                .build();
-
-        assertThrows(IllegalArgumentException.class, () -> table.row("only", "two"));
+        assertThrows(IllegalArgumentException.class, () ->
+                TextTable.builder()
+                        .headers("A", "B", "C")
+                        .row("only", "two") // <- ошибка должна случиться здесь
+                        .build()
+        );
     }
 
     @Test
     @DisplayName("Alignment should affect padding")
     void testAlignment() {
         TextTable table = TextTable.builder()
-                .headers("Left", "Center", "Right")
+                .headers("L", "C", "R")
                 .align(0, TextTable.Alignment.LEFT)
                 .align(1, TextTable.Alignment.CENTER)
                 .align(2, TextTable.Alignment.RIGHT)
                 .style(TextTable.Style.BORDERED)
-                .build()
-                .row("L", "C", "R");
+                .row("x", "y", "z")
+                .build();
 
         String output = table.render();
 

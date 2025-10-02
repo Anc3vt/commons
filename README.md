@@ -1,6 +1,6 @@
 # Commons Utils Library
 
-![Maven Central](https://img.shields.io/maven-central/v/com.ancevt/commons-utils)
+![Maven Central](https://img.shields.io/maven-central/v/com.ancevt.util/commons)
 ![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
 ![Java](https://img.shields.io/badge/Java-8%2B-brightgreen)
 ![Build](https://img.shields.io/badge/build-passing-success)

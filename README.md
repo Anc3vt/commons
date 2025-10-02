@@ -1,5 +1,10 @@
 # Commons Utils Library
 
+![Maven Central](https://img.shields.io/maven-central/v/com.ancevt/commons-utils)
+![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
+![Java](https://img.shields.io/badge/Java-8%2B-brightgreen)
+![Build](https://img.shields.io/badge/build-passing-success)
+
 A lightweight collection of **utility classes** for everyday Java development. Includes helpers for:
 
 * Runtime utilities (sleeping, safe execution, exception handling)

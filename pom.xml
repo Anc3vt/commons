@@ -6,6 +6,7 @@
     <groupId>com.ancevt.util</groupId>
     <artifactId>commons</artifactId>
     <version>1.0.0</version>
+    <packaging>jar</packaging>
 
     <name>Common tools</name>
     <description>My personal collection of lightweight reusable Java utilities for everyday development.</description>
@@ -70,7 +71,6 @@
     </dependencies>
 
     <build>
-        <finalName>isodir-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -102,9 +102,26 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
+                    <environmentVariables>
+                        <ENVUTILS_INT_VALID>123</ENVUTILS_INT_VALID>
+                        <ENVUTILS_INT_INVALID>oops</ENVUTILS_INT_INVALID>
+
+                        <ENVUTILS_BOOL_TRUE>true</ENVUTILS_BOOL_TRUE>
+                        <ENVUTILS_BOOL_ONE>1</ENVUTILS_BOOL_ONE>
+                        <ENVUTILS_BOOL_YES>yes</ENVUTILS_BOOL_YES>
+                        <ENVUTILS_BOOL_ON>on</ENVUTILS_BOOL_ON>
+                        <ENVUTILS_BOOL_FALSE>false</ENVUTILS_BOOL_FALSE>
+                        <ENVUTILS_BOOL_ZERO>0</ENVUTILS_BOOL_ZERO>
+
+                        <ENVUTILS_ENUM_DEBUG>debug</ENVUTILS_ENUM_DEBUG>
+                        <ENVUTILS_ENUM_INVALID>???</ENVUTILS_ENUM_INVALID>
+
+                        <ENVUTILS_LONG_VALID>9876543210</ENVUTILS_LONG_VALID>
+                        <ENVUTILS_LONG_INVALID>NaN</ENVUTILS_LONG_INVALID>
+
+                        <ENVUTILS_DOUBLE_VALID>3.1415</ENVUTILS_DOUBLE_VALID>
+                        <ENVUTILS_DOUBLE_INVALID>pi</ENVUTILS_DOUBLE_INVALID>
+                    </environmentVariables>
                 </configuration>
             </plugin>
         </plugins>

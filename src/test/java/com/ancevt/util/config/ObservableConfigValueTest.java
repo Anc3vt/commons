@@ -29,7 +29,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ValueTest {
+class ObservableConfigValueTest {
 
     enum Mode {DEBUG, RELEASE}
 

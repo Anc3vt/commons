@@ -24,7 +24,6 @@ import java.util.Map;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * <h1>TempCache</h1>
  * A lightweight, thread-safe in-memory cache that combines
  * <b>time-based expiration (TTL)</b> and <b>Least Recently Used (LRU)</b> eviction.
  * <p>

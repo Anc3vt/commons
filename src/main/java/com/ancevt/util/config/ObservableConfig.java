@@ -49,8 +49,6 @@ import java.util.*;
  * config.put("host", "127.0.0.1");
  * }</pre>
  *
- * @author —
- * @since 1.0
  */
 public class ObservableConfig {
 

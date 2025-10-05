@@ -56,7 +56,6 @@ import java.util.Objects;
  * }
  * }</pre>
  *
- * @author ancevt
  */
 public class MainClassNameExtractor {
 

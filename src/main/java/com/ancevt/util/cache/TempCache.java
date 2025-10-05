@@ -134,12 +134,17 @@ public class TempCache<K, V> {
     public void put(K key, V value) {
         lock.writeLock().lock();
         try {
-            cache.put(key, new CacheEntry<>(value, System.currentTimeMillis() + ttlMillis));
+            long expiry = ttlMillis > 0
+                    ? System.currentTimeMillis() + ttlMillis
+                    : Long.MAX_VALUE; // never expires
+
+            cache.put(key, new CacheEntry<>(value, expiry));
             cleanup();
         } finally {
             lock.writeLock().unlock();
         }
     }
+
 
     /**
      * Retrieves a value from the cache.

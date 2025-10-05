@@ -42,8 +42,6 @@ import java.util.UUID;
  * int timeout = value.asInt(30); // default = 30 if parsing fails
  * }</pre>
  *
- * @author —
- * @since 1.0
  */
 public class ObservableConfigValue {
 

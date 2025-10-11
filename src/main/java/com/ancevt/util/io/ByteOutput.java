@@ -20,7 +20,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * written to an {@link java.io.OutputStream}.
  * </p>
  *
- * <h3>Example usage</h3>
+ * Example usage
  * <pre>{@code
  * // Constructing a binary message
  * ByteOutput out = ByteOutput.newInstance();
@@ -40,7 +40,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * boolean b = in.readBoolean();      // true
  * }</pre>
  *
- * <h3>Key features</h3>
+ * Key features
  * <ul>
  *   <li><b>Zero dependencies:</b> pure Java 8 compatible</li>
  *   <li><b>Auto-resizing:</b> grows as you write data</li>
@@ -49,7 +49,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  *   <li><b>GC-friendly:</b> minimal allocations; reuses backing arrays</li>
  * </ul>
  *
- * <h3>Thread-local usage</h3>
+ * Thread-local usage
  * <pre>{@code
  * // Obtain a reusable buffer for the current thread
  * ByteOutput buf = ByteOutput.pooled();

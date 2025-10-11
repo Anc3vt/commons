@@ -18,7 +18,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * and random access (via {@link #position(int)}, {@link #mark()}, and {@link #resetToMark()}).
  * </p>
  *
- * <h3>Example usage</h3>
+ * Example usage
  *
  * <pre>{@code
  * // Writing a packet
@@ -39,7 +39,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * in.resetToMark(); // rewind
  * }</pre>
  *
- * <h3>Performance characteristics</h3>
+ * Performance characteristics
  * <ul>
  *   <li>Zero-copy: no intermediate streams or wrappers</li>
  *   <li>GC-friendly: operates directly on provided byte[]</li>

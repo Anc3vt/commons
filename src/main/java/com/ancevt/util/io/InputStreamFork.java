@@ -26,7 +26,7 @@ import java.util.List;
  *   <li>Debugging / testing pipelines that read from the same data source</li>
  * </ul>
  *
- * <h3>Example usage</h3>
+ * Example usage
  *
  * <pre>{@code
  * try (InputStream src = new FileInputStream("packet.bin")) {
@@ -45,7 +45,7 @@ import java.util.List;
  * }
  * }</pre>
  *
- * <h3>Implementation details</h3>
+ * Implementation details
  * <ul>
  *   <li>The entire input stream is read into memory once.</li>
  *   <li>Each forked stream is backed by the same byte array — no redundant copies.</li>
@@ -53,7 +53,7 @@ import java.util.List;
  *   <li>Not suitable for very large files or streams — the full content is buffered in memory.</li>
  * </ul>
  *
- * <h3>Thread-safety</h3>
+ * Thread-safety
  * <p>
  * Each resulting {@link InputStream} is thread-safe for independent reads,
  * but the {@code InputStreamFork} itself is not intended for concurrent modifications.

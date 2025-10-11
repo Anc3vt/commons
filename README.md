@@ -63,7 +63,7 @@ The library is designed to reduce boilerplate and speed up prototyping, while st
 <dependency>
   <groupId>com.ancevt</groupId>
   <artifactId>commons-utils</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.4</version>
 </dependency>
 ```
 

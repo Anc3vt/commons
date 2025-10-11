@@ -5,7 +5,7 @@
 
     <groupId>com.ancevt.util</groupId>
     <artifactId>commons</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <packaging>jar</packaging>
 
     <name>Common tools</name>

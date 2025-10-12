@@ -46,7 +46,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  *   <li>Thread-confined: not thread-safe by design</li>
  *   <li>Fully compatible with Java 8 and above</li>
  * </ul>
- *
  */
 public final class ByteInput {
 

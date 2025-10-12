@@ -58,9 +58,6 @@ import java.util.List;
  * Each resulting {@link InputStream} is thread-safe for independent reads,
  * but the {@code InputStreamFork} itself is not intended for concurrent modifications.
  * </p>
- *
- * @author Ancevt
- * @since 1.0
  */
 public final class InputStreamFork implements Closeable {
 

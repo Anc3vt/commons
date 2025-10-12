@@ -57,9 +57,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  *
  * // No need to release manually — it’s reused automatically
  * }</pre>
- *
- * @author Ancevt
- * @since 1.0
  */
 public final class ByteOutput {
 

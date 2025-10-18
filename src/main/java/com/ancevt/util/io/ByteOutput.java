@@ -248,6 +248,26 @@ public final class ByteOutput {
         return this;
     }
 
+    /**
+     * Writes a slice of a byte array.
+     *
+     * @param bytes  the source array
+     * @param offset starting position in the array
+     * @param length number of bytes to write
+     * @return this instance
+     */
+    public ByteOutput write(byte[] bytes, int offset, int length) {
+        if (bytes == null) throw new NullPointerException("bytes");
+        if (offset < 0 || length < 0 || offset + length > bytes.length)
+            throw new IndexOutOfBoundsException("Invalid offset/length");
+
+        ensureCapacity(length);
+        System.arraycopy(bytes, offset, buf, pos, length);
+        pos += length;
+        return this;
+    }
+
+
     // ----------------------------------------------------------------------------------------
     // Variable-length and string encoding
     // ----------------------------------------------------------------------------------------

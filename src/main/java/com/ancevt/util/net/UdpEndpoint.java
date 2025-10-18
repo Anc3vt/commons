@@ -154,6 +154,14 @@ abstract class UdpEndpoint implements AutoCloseable {
             if (now - s.lastSeen > cfg.idleTimeoutMillis) {
                 disconnect(s, "idle timeout");
             }
+            if (now - s.lastSeen >= cfg.heartbeatMillis / 2) {
+                try {
+                    byte[] hb = PacketCodec.build(F_HB, s.getConnId(), 0, s.recvMax, s.recvBitmap, new byte[0], cfg.mtu);
+                    ch.send(ByteBuffer.wrap(hb), s.getAddr());
+                } catch (IOException e) {
+                    notifyError(e);
+                }
+            }
         }
     }
 

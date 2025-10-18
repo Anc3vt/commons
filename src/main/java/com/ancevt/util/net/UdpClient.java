@@ -25,6 +25,13 @@ public class UdpClient extends UdpEndpoint {
     @Override
     protected void onDatagram(SocketAddress from, Decoded p) throws IOException {
         if (!from.equals(serverAddr)) return;
+
+        if ((p.flags & F_HB) != 0) {
+            Session s = getOrCreate(from, p.connId);
+            s.lastSeen = System.currentTimeMillis();
+            return;
+        }
+
         Session s = server;
         if ((p.flags & F_HELLO) != 0 && (p.flags & F_ACK) != 0) {
             sessions.remove(from);

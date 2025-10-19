@@ -10,6 +10,8 @@ public class Session {
     private final SocketAddress addr;
     private final int connId;
 
+    long lastHeartbeatSent = 0;
+
     // seq state
     int nextSeq = 1;
     int recvMax = 0;          // наибольший принятый seq
@@ -45,11 +47,10 @@ public class Session {
         if (seq > recvMax) {
             int shift = seq - recvMax;
             if (shift >= 32) {
-                recvBitmap = 0;
+                recvBitmap = 1;
             } else {
-                recvBitmap = (recvBitmap << shift);
+                recvBitmap = (recvBitmap << shift) | 1;
             }
-            recvBitmap |= 1;
             recvMax = seq;
             return true;
         } else {

@@ -3,6 +3,7 @@ package com.ancevt.util.net;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.nio.ByteBuffer;
 
 import static com.ancevt.util.net.PacketCodec.*;
 
@@ -28,18 +29,25 @@ public class UdpServer extends UdpEndpoint {
 
         Session s = sessions.get(from);
         if ((p.flags & F_HELLO) != 0) {
+            Session existing = sessions.get(from);
+            if (existing != null && existing.getConnId() != p.connId) {
+                idManager.releaseId(existing.getConnId());
+                sessions.remove(from);
+            }
             int newId = idManager.acquireId();
             s = getOrCreate(from, newId);
             s.lastSeen = System.currentTimeMillis();
             notifyConnected(s);
             byte[] helloAck = PacketCodec.build(F_HELLO | F_ACK, s.getConnId(), 0, s.recvMax, s.recvBitmap, new byte[0], cfg.mtu);
-            ch.send(java.nio.ByteBuffer.wrap(helloAck), from);
+            ch.send(ByteBuffer.wrap(helloAck), from);
             return;
         }
+
         if (s == null) return;
 
         s.lastSeen = System.currentTimeMillis();
         noteAcks(s, p.ack, p.ackMask);
+        if ((p.flags & F_ACK) != 0 && p.payload.length == 0) return;
 
         if ((p.flags & F_FIN) != 0) {
             disconnect(s, "peer FIN");
@@ -62,12 +70,13 @@ public class UdpServer extends UdpEndpoint {
     }
 
     @Override
-    protected void notifyDisconnected(Session s, String reason) {
-        super.notifyDisconnected(s, reason);
+    protected void disconnect(Session s, String reason) {
+        super.disconnect(s, reason);
         idManager.releaseId(s.getConnId());
     }
 
     public void send(Session s, Reliability rel, byte[] payload) throws IOException {
         super.send(s, rel, payload, 0);
     }
+
 }

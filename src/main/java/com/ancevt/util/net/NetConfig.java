@@ -80,6 +80,7 @@ public class NetConfig {
         }
 
         public NetConfig build() {
+            if (mtu < 64) throw new IllegalArgumentException("MTU too small");
             return new NetConfig(
                     port,
                     rcvBuf,

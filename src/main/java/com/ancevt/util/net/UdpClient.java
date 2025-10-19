@@ -10,10 +10,12 @@ public class UdpClient extends UdpEndpoint {
     private final InetSocketAddress serverAddr;
     private Session server;
 
-    public UdpClient(InetSocketAddress serverAddr, NetConfig cfg, NetListener l) {
+    public UdpClient(InetSocketAddress serverAddr, NetConfig cfg, NetListener listener) {
         super(cfg);
         this.serverAddr = serverAddr;
+        if (listener != null) addNetListener(listener);
     }
+
 
     public void start() throws IOException {
         openAndConfigure(new InetSocketAddress(0));
@@ -34,7 +36,8 @@ public class UdpClient extends UdpEndpoint {
 
         Session s = server;
         if ((p.flags & F_HELLO) != 0 && (p.flags & F_ACK) != 0) {
-            sessions.remove(from);
+            Session old = sessions.remove(from);
+            if (old != null) old.pending.clear();
             server = getOrCreate(from, p.connId);
             server.lastSeen = System.currentTimeMillis();
             notifyConnected(server);
@@ -44,6 +47,7 @@ public class UdpClient extends UdpEndpoint {
 
         s.lastSeen = System.currentTimeMillis();
         noteAcks(s, p.ack, p.ackMask);
+        if ((p.flags & F_ACK) != 0 && p.payload.length == 0) return;
 
         if ((p.flags & F_FIN) != 0) {
             disconnect(s, "server FIN");

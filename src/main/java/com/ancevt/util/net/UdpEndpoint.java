@@ -97,8 +97,12 @@ abstract class UdpEndpoint implements AutoCloseable {
                         buf.flip();
                         byte[] dat = new byte[buf.remaining()];
                         buf.get(dat);
-                        Decoded d = decode(dat);
-                        onDatagram(from, d);
+                        try {
+                            Decoded d = decode(dat);
+                            onDatagram(from, d);
+                        } catch (Exception e) {
+                            notifyError(e);
+                        }
                     }
                 }
             }
@@ -134,6 +138,7 @@ abstract class UdpEndpoint implements AutoCloseable {
     private void tick() {
         long now = System.currentTimeMillis();
         for (Session s : sessions.values()) {
+            if (s.pending.isEmpty()) continue;
             for (Iterator<Map.Entry<Integer, Session.Pending>> it = s.pending.entrySet().iterator(); it.hasNext(); ) {
                 Map.Entry<Integer, Session.Pending> e = it.next();
                 Session.Pending p = e.getValue();
@@ -154,10 +159,11 @@ abstract class UdpEndpoint implements AutoCloseable {
             if (now - s.lastSeen > cfg.idleTimeoutMillis) {
                 disconnect(s, "idle timeout");
             }
-            if (now - s.lastSeen >= cfg.heartbeatMillis / 2) {
+            if (now - s.lastHeartbeatSent >= cfg.heartbeatMillis) {
                 try {
                     byte[] hb = PacketCodec.build(F_HB, s.getConnId(), 0, s.recvMax, s.recvBitmap, new byte[0], cfg.mtu);
                     ch.send(ByteBuffer.wrap(hb), s.getAddr());
+                    s.lastHeartbeatSent = now;
                 } catch (IOException e) {
                     notifyError(e);
                 }
@@ -182,15 +188,17 @@ abstract class UdpEndpoint implements AutoCloseable {
         } catch (Exception ignored) {
         }
         notifyDisconnected(s, reason);
+        s.pending.clear();
     }
 
     public void stop() {
+        timer.shutdownNow();
         try {
             close();
         } catch (Exception ignored) {
         }
-        timer.shutdownNow();
     }
+
 
     @Override
     public void close() throws Exception {
